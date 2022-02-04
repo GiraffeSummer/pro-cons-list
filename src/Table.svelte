@@ -41,7 +41,7 @@ function removeList(){
 }
 </script>
 
-<div class="card large col-sm-6">
+<div class="card large col-md-6">
   <div class="section row">
     <div />
 
