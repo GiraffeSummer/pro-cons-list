@@ -7,7 +7,7 @@ export const symbols = {
     delete: '🗑',
     edit: '✎',
     pro: '✔',
-    con: '⨯',
+    con: 'x',
 };
 
 export const createList = (name, items = [], editing = false) => {
