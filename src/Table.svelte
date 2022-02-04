@@ -15,6 +15,7 @@
   const ReSort = (o, ind, up = true) => {
     let newInd = up ? ind + 1 : ind - 1;
     list.items = arraymove(list.items, ind, newInd);
+    save();
   };
   function arraymove(arr, fromIndex, toIndex) {
     let element = arr[fromIndex];
