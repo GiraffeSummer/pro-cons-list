@@ -8,7 +8,7 @@
     pro: '✔',
     con: '⨯',
   };
-  import { createListItem } from './store.js';
+  import { createListItem, save,lists } from './store.js';
   let editing = true;
   export let list;
 
@@ -24,13 +24,20 @@
   }
   const addItem = () => {
     list.items = [...list.items, createListItem('new item', true)];
+    save();
   };
   const remItem = (ind, o) => {
     list.items = list.items.filter((value, index, arr) => ind != index);
+    save();
   };
   function init(el) {
     el.focus();
   }
+function removeList(){
+  $lists = $lists.filter((value, index, arr)=>{ 
+    if (value != list) return value;
+  });
+}
 </script>
 
 <div class="card large col-sm-6">
@@ -43,7 +50,10 @@
         type="text"
         bind:value={list.name}
         use:init
-        on:blur={() => (list.editing = false)}
+        on:blur={() => {
+          list.editing = false;
+          save();
+        }}
       />
     {:else}
       <h3 class="col-sm" on:click={() => (list.editing = true)}>
@@ -57,7 +67,10 @@
       <li class="row">
         <h3
           style="user-select: none;color: {d.isPro ? 'green' : 'red'}"
-          on:click={() => (d.isPro = !d.isPro)}
+          on:click={() => {
+            d.isPro = !d.isPro;
+            save();
+          }}
         >
           {d.isPro ? symb.pro : symb.con}
         </h3>
@@ -68,6 +81,7 @@
             use:init
             on:blur={() => {
               d.isEditing = false;
+              save();
             }}
           />
         {:else}
@@ -106,6 +120,9 @@
   <div class="section dark">
     <button on:click={addItem} class="tertiary">
       {symb.plus}
+    </button>
+    <button on:click={removeList} class="secondary">
+      {symb.delete}
     </button>
   </div>
 </div>
