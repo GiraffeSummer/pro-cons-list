@@ -1,0 +1,19 @@
+{
+  "name": "tablemanager",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
+    "svelte": "^3.44.0",
+    "vite": "^2.7.2"
+  },
+  "dependencies": {
+    "mini.css": "^3.0.1",
+    "svelte-dragdroplist": "^1.1.1",
+    "svelte-preprocess": "^4.10.2"
+  }
+}
