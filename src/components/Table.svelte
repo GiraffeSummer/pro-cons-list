@@ -1,4 +1,4 @@
-<script>  
+<script>
   import { createListItem, save, lists, symbols } from '../store.js';
   export let list;
 
@@ -34,8 +34,6 @@
 
 <div class="card large col-md-6">
   <div class="section row">
-    <div />
-
     {#if list.editing}
       <input
         class="col-sm"
@@ -113,10 +111,10 @@
     {/each}
   </ul>
   <div class="section dark">
-    <button on:click={addItem} class="tertiary">
+    <button on:click={addItem} title="add row" class="tertiary">
       {symbols.plus}
     </button>
-    <button on:click={removeList} class="secondary">
+    <button on:click={removeList} title="delete {list.name}" class="secondary col-sm-offset-9" >
       {symbols.delete}
     </button>
   </div>
