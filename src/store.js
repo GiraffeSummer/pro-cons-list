@@ -1,5 +1,14 @@
 import { writable } from 'svelte/store';
 
+export const symbols = {
+    up: '▲',
+    down: '▼',
+    plus: '+',
+    delete: '🗑',
+    edit: '✎',
+    pro: '✔',
+    con: '⨯',
+};
 
 export const createList = (name, items = [], editing = false) => {
     return { name, items, editing }

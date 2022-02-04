@@ -1,19 +1,10 @@
-<script>
-  const symb = {
-    up: '▲',
-    down: '▼',
-    plus: '+',
-    delete: '🗑',
-    edit: '✎',
-    pro: '✔',
-    con: '⨯',
-  };
-  import { createListItem, save, lists } from '../store.js';
-  let editing = true;
+<script>  
+  import { createListItem, save, lists, symbols } from '../store.js';
   export let list;
 
-  const ReSort = (o, ind, up = true) => {
-    let newInd = up ? ind + 1 : ind - 1;
+  const ReSort = (ind, direction = 1) => {
+    //direction: 1 is up, -1 is down
+    let newInd = ind + direction;
     list.items = arraymove(list.items, ind, newInd);
     save();
   };
@@ -27,7 +18,7 @@
     list.items = [...list.items, createListItem('new item', true)];
     save();
   };
-  const remItem = (ind, o) => {
+  const remItem = (ind) => {
     list.items = list.items.filter((value, index, arr) => ind != index);
     save();
   };
@@ -67,13 +58,15 @@
     {#each list.items as d, ind}
       <li class="row">
         <h3
-          style="cursor:pointer;user-select: none;color: {d.isPro ? 'green' : 'red'}"
+          style="cursor:pointer;user-select: none;color: {d.isPro
+            ? 'green'
+            : 'red'}"
           on:click={() => {
             d.isPro = !d.isPro;
             save();
           }}
         >
-          {d.isPro ? symb.pro : symb.con}
+          {d.isPro ? symbols.pro : symbols.con}
         </h3>
         {#if d.isEditing}
           <input
@@ -96,14 +89,14 @@
           <button
             disabled={ind == 0}
             on:click={() => {
-              ReSort(d, ind, false);
-            }}>{symb.up}</button
+              ReSort(ind, -1);
+            }}>{symbols.up}</button
           >
           <button
             disabled={ind == list.items.length - 1}
             on:click={() => {
-              ReSort(d, ind, true);
-            }}>{symb.down}</button
+              ReSort(ind, 1);
+            }}>{symbols.down}</button
           >
 
           <button
@@ -113,7 +106,7 @@
               remItem(ind);
             }}
           >
-            {symb.delete}
+            {symbols.delete}
           </button>
         </div>
       </li>
@@ -121,10 +114,10 @@
   </ul>
   <div class="section dark">
     <button on:click={addItem} class="tertiary">
-      {symb.plus}
+      {symbols.plus}
     </button>
     <button on:click={removeList} class="secondary">
-      {symb.delete}
+      {symbols.delete}
     </button>
   </div>
 </div>
