@@ -1,7 +1,7 @@
 <script>
-  import Table from './Table.svelte';
+  import Table from './components/Table.svelte';
   import { lists, createList, createListItem } from './store.js';
-  import Analytics from './Analytics.svelte';
+  import Analytics from './components/Analytics.svelte';
 
   const addList = () => {
     $lists = [...$lists, createList('new list', [])];

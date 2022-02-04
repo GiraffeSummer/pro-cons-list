@@ -8,7 +8,7 @@
     pro: '✔',
     con: '⨯',
   };
-  import { createListItem, save, lists } from './store.js';
+  import { createListItem, save, lists } from '../store.js';
   let editing = true;
   export let list;
 
@@ -67,7 +67,7 @@
     {#each list.items as d, ind}
       <li class="row">
         <h3
-          style="user-select: none;color: {d.isPro ? 'green' : 'red'}"
+          style="cursor:pointer;user-select: none;color: {d.isPro ? 'green' : 'red'}"
           on:click={() => {
             d.isPro = !d.isPro;
             save();
