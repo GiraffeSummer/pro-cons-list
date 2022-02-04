@@ -8,7 +8,7 @@
     pro: '✔',
     con: '⨯',
   };
-  import { createListItem, save,lists } from './store.js';
+  import { createListItem, save, lists } from './store.js';
   let editing = true;
   export let list;
 
@@ -34,11 +34,11 @@
   function init(el) {
     el.focus();
   }
-function removeList(){
-  $lists = $lists.filter((value, index, arr)=>{ 
-    if (value != list) return value;
-  });
-}
+  function removeList() {
+    $lists = $lists.filter((value, index, arr) => {
+      if (value != list) return value;
+    });
+  }
 </script>
 
 <div class="card large col-md-6">
@@ -77,6 +77,7 @@ function removeList(){
         </h3>
         {#if d.isEditing}
           <input
+            class="col-sm"
             type="text"
             bind:value={d.name}
             use:init
@@ -86,7 +87,7 @@ function removeList(){
             }}
           />
         {:else}
-          <h4 class="collapse col-sm-6" on:click={() => (d.isEditing = true)}>
+          <h4 class="col-sm" on:click={() => (d.isEditing = true)}>
             {d.name}
           </h4>
         {/if}
