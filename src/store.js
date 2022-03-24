@@ -10,8 +10,26 @@ export const symbols = {
     con: 'x',
 };
 
+import component_procon from './components/lists/ProCon.svelte'
+import component_todo from './components/lists/Todo.svelte'
+export const listTypes = {
+    procon: component_procon,
+    todo: component_todo
+}
+
+//unused, maybe for later extra properties
+const listProps = {
+    procon: { isPro: true },
+    todo: { done: false }
+}
+
+//focus element
+export function init(el) {
+    el.focus();
+}
+
 export const createList = (name, items = [], editing = false) => {
-    return { name, items, editing }
+    return { name, items, editing, listType: "procon" }
 }
 
 export const createListItem = (name, editing = false) => {

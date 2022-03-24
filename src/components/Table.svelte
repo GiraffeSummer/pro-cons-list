@@ -1,5 +1,12 @@
 <script>
-  import { createListItem, save, lists, symbols } from '../store.js';
+  import {
+    createListItem,
+    save,
+    lists,
+    symbols,
+    listTypes,
+    init,
+  } from '../store.js';
   export let list;
 
   const ReSort = (ind, direction = 1) => {
@@ -22,9 +29,7 @@
     list.items = list.items.filter((value, index, arr) => ind != index);
     save();
   };
-  function init(el) {
-    el.focus();
-  }
+
   function removeList() {
     $lists = $lists.filter((value, index, arr) => {
       if (value != list) return value;
@@ -50,38 +55,18 @@
         {list.name}
       </h3>
     {/if}
+    <select bind:value={list.listType}>
+      {#each Object.keys(listTypes) as type}
+        <option value={type}>{type}</option>
+      {/each}
+    </select>
   </div>
 
   <ul class="">
     {#each list.items as d, ind}
       <li class="row">
-        <h3
-          style="cursor:pointer;user-select: none;color: {d.isPro
-            ? 'green'
-            : 'red'}"
-          on:click={() => {
-            d.isPro = !d.isPro;
-            save();
-          }}
-        >
-          {d.isPro ? symbols.pro : symbols.con}
-        </h3>
-        {#if d.isEditing}
-          <input
-            class="col-sm"
-            type="text"
-            bind:value={d.name}
-            use:init
-            on:blur={() => {
-              d.isEditing = false;
-              save();
-            }}
-          />
-        {:else}
-          <h4 class="col-sm" on:click={() => (d.isEditing = true)}>
-            {d.name}
-          </h4>
-        {/if}
+        <!--list element-->
+        <svelte:component this={listTypes[list.listType]} item={d} />
 
         <div class="button-group">
           <button
@@ -114,7 +99,11 @@
     <button on:click={addItem} title="add row" class="tertiary">
       {symbols.plus}
     </button>
-    <button on:click={removeList} title="delete {list.name}" class="secondary col-sm-offset-9" >
+    <button
+      on:click={removeList}
+      title="delete {list.name}"
+      class="secondary col-sm-offset-9"
+    >
       {symbols.delete}
     </button>
   </div>
