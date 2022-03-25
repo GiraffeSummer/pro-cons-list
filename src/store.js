@@ -58,9 +58,9 @@ export const migrateList = (list, newType) => {
     return list
 }
 
-const loadedlist = JSON.parse(localStorage.getItem('lists')).map(x => upgradeMissing(x));
+const loadedlist = JSON.parse(localStorage.getItem('lists'));
 
-export let lists = writable(loadedlist || [
+export let lists = writable(loadedlist != undefined ? loadedlist.map(x => upgradeMissing(x)) : [
     createList(
         'My first list',
         [createListItem('item 1', 'procon'), createListItem('item 2', 'procon')],
