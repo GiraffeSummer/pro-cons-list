@@ -6,7 +6,7 @@
 <h3
   style="cursor:pointer;user-select: none;"
   on:click={() => {
-    item.done = !item.done;
+    item.todo.done = !item.todo.done;
     save();
   }}
 >
@@ -25,7 +25,7 @@
   />
 {:else}
   <h4
-    class="col-sm {item.done ? '' : 'crossed'}"
+    class="col-sm {item.todo.done ? 'crossed' : ''}"
     on:click={() => (item.isEditing = true)}
   >
     {item.name}

@@ -6,6 +6,7 @@
     symbols,
     listTypes,
     init,
+    migrateList,
   } from '../store.js';
   export let list;
 
@@ -22,7 +23,10 @@
     return arr;
   }
   const addItem = () => {
-    list.items = [...list.items, createListItem('new item', true)];
+    list.items = [
+      ...list.items,
+      createListItem('new item', list.listType, true),
+    ];
     save();
   };
   const remItem = (ind) => {
@@ -34,6 +38,13 @@
     $lists = $lists.filter((value, index, arr) => {
       if (value != list) return value;
     });
+  }
+
+  let newType = list.listType;
+
+  function migrate() {
+    list = migrateList(list, newType);
+    save();
   }
 </script>
 
@@ -55,7 +66,7 @@
         {list.name}
       </h3>
     {/if}
-    <select bind:value={list.listType}>
+    <select bind:value={newType} on:change={migrate}>
       {#each Object.keys(listTypes) as type}
         <option value={type}>{type}</option>
       {/each}
