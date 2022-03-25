@@ -81,11 +81,19 @@ function upgradeMissing(list) {
     const itemKeys = Object.keys(templateItem);
     list.items.forEach(item => {
         itemKeys.forEach(key => {
-            if (!(key in item)) {
+            if (!(key in item) && ![...Object.keys(listTypes)].includes(key)) {
                 item[key] = templateItem[key]
             }
         })
+
+        //remove deprecated values
+        Object.keys(item).forEach(key => {
+            if (['isPro'].includes(key)) {
+                delete item[key];
+            }
+        })
     });
+
     return list
 }
 
